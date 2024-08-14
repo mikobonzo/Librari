@@ -57,14 +57,14 @@ public class BookProcessor {
 	}	
 	
 	@PostMapping(path = "/locate", produces = "application/json")
-	public ResponseEntity<Book> locateBook(@RequestParam(required = true) String isbn){
+	public ResponseEntity<Book> locateBook(@RequestParam(required = true) String bookid){
 		
 		ResponseEntity<Book> re = ResponseEntity.status(
 				HttpStatus.NOT_FOUND).body(new Book());
 
 		
-		logger.info("ISBN" + isbn);
-		Book book = bookService.getBook(isbn);
+		logger.info("BID" + bookid);
+		Book book = bookService.getBookByBookId(bookid);
 
 		if (book != null) {
 		    re =  ResponseEntity.ok(book);

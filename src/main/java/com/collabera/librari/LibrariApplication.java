@@ -68,12 +68,12 @@ public class LibrariApplication implements CommandLineRunner {
 			 book = null;
 			 
 			 borrower = new Borrower("mmayor", "Michael", "Mayor",
-					 1, Calendar.getInstance().getTime());
+					 1, Calendar.getInstance().getTime(),"mmayor@abc123.com");
 			 
 			 borrowerService.saveBorrower(borrower); borrower = null;
 			 
 			 borrower = new Borrower("svai", "Steve", "Vai",
-					 1, Calendar.getInstance().getTime());
+					 1, Calendar.getInstance().getTime(),"svai@hotmail.com");
 			 
 			 borrowerService.saveBorrower(borrower); borrower = null;	
 			 

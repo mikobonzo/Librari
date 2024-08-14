@@ -51,6 +51,9 @@ public class Borrower extends Audit<String> {
     @Column(name="createdate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdate;
+    
+    @Column(name="email")
+    private String email; 
 
 
 	public Borrower() {}
@@ -63,12 +66,13 @@ public class Borrower extends Audit<String> {
 	 * @param active
 	 * @param createdate
 	 */
-	public Borrower(String username, String firstname, String lastname, int active, Date createdate) {
+	public Borrower(String username, String firstname, String lastname, int active, Date createdate,String email) {
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = firstname;
 		this.active = active;
 		this.createdate = createdate;
+		this.email = email;
 	}
 
 
@@ -165,6 +169,38 @@ public class Borrower extends Audit<String> {
 	 */
 	public void setCreatedate(Date createdate) {
 		this.createdate = createdate;
+	}
+
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+
+	/**
+	 * @param firstname the firstname to set
+	 */
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+
+	/**
+	 * @param lastname the lastname to set
+	 */
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}    
 
 

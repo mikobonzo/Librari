@@ -21,6 +21,7 @@ import com.collabera.librari.LibrariConstants;
 import com.collabera.librari.entity.Borrower;
 import com.collabera.librari.entity.Message;
 import com.collabera.librari.services.BorrowerService;
+import com.collabera.librari.utils.LibUtils;
 import com.collabera.librari.vo.Borrowers;
 
 /**
@@ -35,7 +36,9 @@ public class BorrowerProcessor {
 	
 	private static Logger logger = LoggerFactory.getLogger(BorrowerProcessor.class);
 
-	
+    @Autowired
+    private LibUtils libUtils;
+    
 	@Autowired
 	private BorrowerService borrowerService;	
 
@@ -76,7 +79,8 @@ public class BorrowerProcessor {
 	@PostMapping(path = "/register", produces = "application/json")
 	public Message registerBorrower(@RequestParam(required = true) String username,
 			@RequestParam(required = true) String firstname,
-			@RequestParam(required = true) String lastname){
+			@RequestParam(required = true) String lastname,
+			@RequestParam(required = true) String email){
 		
 		logger.info("@registerBorrower");
 		Message message = null;
@@ -91,15 +95,20 @@ public class BorrowerProcessor {
 
 		}else {
 			 if(username.trim().isEmpty() || firstname.trim().isEmpty()
-					 || lastname.trim().isEmpty() ) {
+					 || lastname.trim().isEmpty() || email.trim().isEmpty() ||
+					 !libUtils.isValidEmail(email)) {
 				 
 					message = new Message(LibrariConstants.ERROR, username,
-							"Please complete all parameters",Calendar.getInstance().getTime());	 
+							"Please complete all parameters correctly."
+							+ "Incorrect entry found!",Calendar.getInstance().getTime());	 
 				 
 			 }else {
 				 
 					borrower = new Borrower(username,firstname,lastname,
-							LibrariConstants.ACTIVE,Calendar.getInstance().getTime());
+							LibrariConstants.ACTIVE,
+							Calendar.getInstance().getTime(),
+							email);
+					
 					borrowerService.saveBorrower(borrower);
 					
 					message = new Message(LibrariConstants.SUCCESS, username,
